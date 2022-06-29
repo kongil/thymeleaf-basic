@@ -17,13 +17,13 @@ import java.util.Map;
 @RequestMapping("/basic")
 public class BasicController {
 
-    @GetMapping("text-basic")
+    @GetMapping("/text-basic")
     public String textBasic(Model model) {
         model.addAttribute("data", "Hello <b>Spring!</b>");
         return "basic/text-basic";
     }
 
-    @GetMapping("text-unescaped")
+    @GetMapping("/text-unescaped")
     public String textUnescaped(Model model) {
         model.addAttribute("data", "Hello <b>Spring!</b>");
         return "basic/text-unescaped";
@@ -84,5 +84,39 @@ public class BasicController {
         model.addAttribute("param1", "data1");
         model.addAttribute("param2", "data2");
         return "basic/link";
+    }
+
+    @GetMapping("/literal")
+    public String literal(Model model) {
+        model.addAttribute("data", "Spring!");
+        return "basic/literal";
+    }
+
+    @GetMapping("/operation")
+    public String operation(Model model) {
+        model.addAttribute("nullData", null);
+        model.addAttribute("data", "Spring");
+        return "basic/operation";
+    }
+
+    @GetMapping("/attribute")
+    public String attribute() {
+        return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(Model model) {
+        addUsers(model);
+        return "basic/each";
+    }
+
+    public void addUsers(Model model) {
+        ArrayList<User> list = new ArrayList<>();
+
+        list.add(new User("userA", 10));
+        list.add(new User("userB", 20));
+        list.add(new User("userC", 30));
+
+        model.addAttribute("users", list);
     }
 }
